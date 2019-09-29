@@ -3,7 +3,8 @@ const rateLimit = require("express-rate-limit");
 const Utils = require("../modules/Utils");
 const uuid = require("uuid/v4");
 
-router.post("/add", rateLimit({
+router.use(Utils.binURLValidator);
+router.post("/*", rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100
 }), (req, res, next) => {

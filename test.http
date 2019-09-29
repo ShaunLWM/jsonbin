@@ -3,7 +3,10 @@ GET http://localhost:5000
 
 ### 
 
-POST http://localhost:5000/add HTTP/1.1
+GET http://localhost:5000/genid
+### 
+
+POST http://localhost:5000/75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
 content-type: application/json
 
 {
