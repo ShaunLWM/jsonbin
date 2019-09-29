@@ -23,5 +23,14 @@ let self = module.exports = {
         }
 
         return next();
+    },
+    validateObjectValueSize: function(obj) {
+        Object.entries(obj).forEach(([key, val]) => {
+            if (self.fieldOverSized(val)) {
+                return `field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`;
+            }
+        });
+
+        return null;
     }
 }

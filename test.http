@@ -13,3 +13,18 @@ content-type: application/json
     "name": "sample",
     "time": "145345435435"
 }
+### 
+
+POST http://localhost:5000/75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
+content-type: application/json
+
+[
+  {
+    "name": "Daenerys Targaryen",
+    "age": 25
+  },
+  {
+    "name": "Arya Stark",
+    "age": 16
+  }
+]

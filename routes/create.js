@@ -16,19 +16,29 @@ router.post("/*", [Utils.binURLValidator, rateLimit({
     }
 
     let data = (typeof req.body === "object") ? req.body : JSON.parse(req.body);
-    Object.entries(data).forEach(([key, val]) => {
-        if (Utils.fieldOverSized(val)) {
-            throw new Error(`field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`);
-        }
-    });
+    let finalized = null;
+    if (Array.isArray(data)) {
+        finalized = []
+        data.forEach(element => {
+            let result = Utils.validateObjectValueSize(element);
+            if (result !== null) throw new Error(result);
+            finalized.push(Object.assign({
+                _id: uuid(),
+                _createdOn: new Date(),
+                _success: true
+            }, element));
+        });
+    } else if (typeof data === "object") {
+        let result = Utils.validateObjectValueSize(data);
+        if (result !== null) throw new Error(result);
+        finalized = Object.assign({
+            _id: uuid(),
+            _createdOn: new Date(),
+            _success: true
+        }, data);
+    }
 
-    data = Object.assign({
-        _id: uuid(),
-        _createdOn: new Date(),
-        _success: true
-    }, data);
-
-    return res.status(200).json(data)
+    return res.status(200).json(finalized)
 });
 
 module.exports = router;
