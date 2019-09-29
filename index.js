@@ -21,7 +21,7 @@ app.get("/genid", (req, res) => {
 
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(err.statusCode || 500).json({ message: err.message });
+    res.status(err.statusCode || 500).json({ _success: false, _message: err.message });
 });
 
 app.listen(5000, err => {

@@ -24,7 +24,8 @@ router.post("/add", rateLimit({
 
     data = Object.assign({
         _id: uuid(),
-        _createdOn: new Date()
+        _createdOn: new Date(),
+        _success: true
     }, data);
 
     return res.status(200).json(data)
