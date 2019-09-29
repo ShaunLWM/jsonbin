@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 
 app.use(routes_add);
 app.get("/genid", (req, res) => {
-
-})
+    return res.status(200).json({ _success: true, id: uuid() })
+});
 
 app.use((err, req, res, next) => {
     console.error(err);
