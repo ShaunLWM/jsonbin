@@ -1,6 +1,6 @@
 let self = module.exports = {
     getStringSize: function(str) {
-        return Buffer.byteLength(str, "utf8");
+        return Buffer.byteLength(str.toString(), "utf8");
     },
     fieldOverSized: function(str) {
         return self.getStringSize(str) > 10000;
