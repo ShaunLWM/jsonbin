@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const helmet = require("helmet");
 const path = require("path");
 const uuid = require("uuid/v4");
 
@@ -8,6 +9,7 @@ const routes_add = require("./routes/create");
 let app = express();
 
 app.enable("trust proxy");
+app.use(helmet());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "wwww")));
 app.use(bodyParser.json());
