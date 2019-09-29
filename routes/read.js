@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const rateLimit = require("express-rate-limit");
+const Utils = require("../modules/Utils");
 
-router.get("/*", (req, res) => {
+router.get("/*", Utils.binURLValidator, (req, res, next) => {
 
 });
 

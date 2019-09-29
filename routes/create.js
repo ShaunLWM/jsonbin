@@ -8,20 +8,17 @@ router.post("/*", [Utils.binURLValidator, rateLimit({
     max: 100
 })], (req, res, next) => {
     if (typeof req.body === "undefined") {
-        throw new Error("no body data found");
+        return next(new Error("no body data found"));
     }
 
-    if (!Utils.isJSON(req.body)) {
-        throw new Error("data is not in valid json format");
-    }
-
+    if (!Utils.isJSON(req.body)) return next(new Error("data is not in valid json format"));
     let data = (typeof req.body === "object") ? req.body : JSON.parse(req.body);
     let finalized = null;
     if (Array.isArray(data)) {
         finalized = []
         data.forEach(element => {
             let result = Utils.validateObjectValueSize(element);
-            if (result !== null) throw new Error(result);
+            if (result !== null) return next(new Error(result));
             finalized.push(Object.assign({
                 _id: uuid(),
                 _createdOn: new Date(),
@@ -30,7 +27,7 @@ router.post("/*", [Utils.binURLValidator, rateLimit({
         });
     } else if (typeof data === "object") {
         let result = Utils.validateObjectValueSize(data);
-        if (result !== null) throw new Error(result);
+        if (result !== null) return next(new Error(result));
         finalized = Object.assign({
             _id: uuid(),
             _createdOn: new Date(),
@@ -38,7 +35,7 @@ router.post("/*", [Utils.binURLValidator, rateLimit({
         }, data);
     }
 
-    return res.status(200).json(finalized)
+    return res.status(200).json(finalized);
 });
 
 module.exports = router;

@@ -18,10 +18,7 @@ let self = module.exports = {
     },
     binURLValidator: function(req, res, next) {
         let path = self.cleanPath(req.path);
-        if (path.match(new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) {
-            throw new Error("uuid is in wrong format")
-        }
-
+        if (path.match(new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) return next(new Error("uuid is in wrong format"));
         return next();
     },
     validateObjectValueSize: function(obj) {

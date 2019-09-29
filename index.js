@@ -22,7 +22,7 @@ app.get("/genid", (req, res) => {
 app.use(routes_add);
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(err.statusCode || 500).json({ _success: false, _message: err.message });
+    return res.status(err.statusCode || 500).json({ _success: false, _message: err.message });
 });
 
 app.listen(5000, err => {
