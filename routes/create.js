@@ -3,11 +3,10 @@ const rateLimit = require("express-rate-limit");
 const Utils = require("../modules/Utils");
 const uuid = require("uuid/v4");
 
-router.use(Utils.binURLValidator);
-router.post("/*", rateLimit({
+router.post("/*", [Utils.binURLValidator, rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100
-}), (req, res, next) => {
+})], (req, res, next) => {
     if (typeof req.body === "undefined") {
         throw new Error("no body data found");
     }
