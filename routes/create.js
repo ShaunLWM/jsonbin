@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const rateLimit = require("express-rate-limit");
 const Utils = require("../modules/Utils");
+const uuid = require("uuid/v4");
 
 router.post("/add", rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -14,17 +15,19 @@ router.post("/add", rateLimit({
         throw new Error("data is not in valid json format");
     }
 
-    if (typeof req.body === "object") {
-        Object.entries(req.body).forEach(([key, val]) => {
-            if (Utils.fieldOverSized(val)) {
-                throw new Error(`field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`);
-            }
-        });
+    let data = (typeof req.body === "object") ? req.body : JSON.parse(req.body);
+    Object.entries(data).forEach(([key, val]) => {
+        if (Utils.fieldOverSized(val)) {
+            throw new Error(`field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`);
+        }
+    });
 
-        // TODO: Add id, createdOn
-    }
+    data = Object.assign({
+        _id: uuid(),
+        _createdOn: new Date()
+    }, data);
 
-    return res.status(200).json({ success: true })
+    return res.status(200).json(data)
 });
 
 module.exports = router;
