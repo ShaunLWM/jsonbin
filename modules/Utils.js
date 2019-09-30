@@ -21,13 +21,22 @@ let self = module.exports = {
         if (path.match(new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) return next(new Error("uuid is in wrong format"));
         return next();
     },
-    validateObjectValueSize: function(obj) {
-        Object.entries(obj).forEach(([key, val]) => {
+    validateObjectValueSize: function(req, res, next) {
+        Object.entries(req.body).forEach(([key, val]) => {
             if (self.fieldOverSized(val)) {
-                return `field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`;
+                return next(new Error(`field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`));
             }
         });
 
-        return null;
+        return next();
+    },
+    ensureJson: function(req, res, next) {
+        if (!self.isJSON(req.body)) return next(new Error("data is not in valid json format"));
+
+        return next();
+    },
+    ensureBody: function(req, res, next) {
+        if (typeof req.body === "undefined") return next(new Error("no body data found"));
+        return next();
     }
 }
