@@ -14,11 +14,18 @@ let self = module.exports = {
         }
     },
     cleanPath: function(str) {
-        return str.substr(1)
+        return str.split("/").filter(s => s.length > 1);
     },
     binURLValidator: function(req, res, next) {
-        let path = self.cleanPath(req.path);
-        if (path.match(new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) return next(new Error("uuid is in wrong format"));
+        let paths = self.cleanPath(req.path);
+        if (paths.length > 2) return next(new Error("wrong path parameters"))
+        if (paths.length === 1 && paths[0].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) {
+            return next(new Error("uuid is in wrong format"));
+        } else if (paths.length === 2) {
+            if (paths[0].match(new RegExp(/^\w+$/g)) === null) return next(new Error("collection only allows alphanumeric characters"));
+            if (paths[1].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) return next(new Error("uuid is in wrong format"));
+        }
+
         return next();
     },
     validateObjectValueSize: function(req, res, next) {
@@ -32,7 +39,6 @@ let self = module.exports = {
     },
     ensureJson: function(req, res, next) {
         if (!self.isJSON(req.body)) return next(new Error("data is not in valid json format"));
-
         return next();
     },
     ensureBody: function(req, res, next) {
