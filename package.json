@@ -6,10 +6,12 @@
   "author": "ShaunLWM <shaunlimweimin@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.0.0",
+    "flatted": "^2.0.1",
     "helmet": "^3.21.1",
     "redis": "^2.8.0",
     "uuid": "^3.3.3"

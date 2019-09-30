@@ -5,9 +5,11 @@ const helmet = require("helmet");
 const path = require("path");
 const uuid = require("uuid/v4");
 
+const Database = require("./modules/connector/redis");
 const routes_add = require("./routes/create");
-const Utils = require("./modules/Utils");
+
 let app = express();
+let database = new Database();
 
 app.enable("trust proxy");
 app.use(helmet());
@@ -25,7 +27,8 @@ app.use((err, req, res, next) => {
     return res.status(err.statusCode || 500).json({ _success: false, _message: err.message });
 });
 
+app.database = database;
 app.listen(5000, err => {
     if (err) return console.error(err);
     console.log("[@] server started on port 5000");
-})
+});
