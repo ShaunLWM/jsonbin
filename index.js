@@ -6,7 +6,8 @@ const path = require("path");
 const uuid = require("uuid/v4");
 
 const Database = require("./modules/connector/redis");
-const routes_add = require("./routes/create");
+const routes_create = require("./routes/create");
+const routes_read = require("./routes/read");
 
 let app = express();
 let database = new Database();
@@ -21,7 +22,9 @@ app.get("/genid", (req, res) => {
     return res.status(200).json({ _success: true, id: uuid() })
 });
 
-app.use(routes_add);
+app.use(routes_create);
+app.use(routes_read);
+
 app.use((err, req, res, next) => {
     console.error(err);
     return res.status(err.statusCode || 500).json({ _success: false, _message: err.message });
