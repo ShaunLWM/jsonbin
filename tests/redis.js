@@ -15,6 +15,10 @@ let db = new redis();
 
 
 (async function() {
-    console.log(await db.get("bin_75bf73bc-40d6-4010-a165-5a457468c4b1"))
-    console.log("Done");
+    // console.log(await db.get("bin_75bf73bc-40d6-4010-a165-5a457468c4b1"))
+    // console.log("Done");
+    // let res = await db.get("bin_75bf73bc-40d6-4010-a165-5a457468c4b1", "company");
+    // console.log((await db.get("bin_75bf73bc-40d6-4010-a165-5a457468c4b1", "company"))[1])
+
+    console.log((await db.get("bin_75bf73bc-40d6-4010-a165-5a457468c4b1", "company")))
 })();
