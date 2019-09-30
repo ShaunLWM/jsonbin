@@ -18,13 +18,12 @@ let self = module.exports = {
     },
     binURLValidator: function(req, res, next) {
         let paths = self.cleanPath(req.path);
-        if (paths.length > 2) return next(new Error("wrong path parameters"))
-
-        // TODO: paths[0] to be in one sentence
-        if (paths.length === 1 && paths[0].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) {
+        if (paths.length > 2 || paths.length < 1) return next(new Error("wrong path parameters"))
+        if (paths[0].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) {
             return next(new Error("uuid is in wrong format"));
-        } else if (paths.length === 2) {
-            if (paths[0].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) return next(new Error("uuid is in wrong format"));
+        }
+
+        if (paths.length === 2) {
             if (paths[1].match(new RegExp(/^\w+$/g)) === null) return next(new Error("collection only allows alphanumeric characters"));
             req._collection = paths[1].trim();
         }
