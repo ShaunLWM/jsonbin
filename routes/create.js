@@ -10,19 +10,22 @@ router.post("/*", [Utils.binURLValidator, Utils.ensureBody, Utils.ensureJson, Ut
     let data = (typeof req.body === "object") ? req.body : JSON.parse(req.body);
     let finalized = null;
     if (Array.isArray(data)) {
-        finalized = data.map(element => formatData(element))
+        finalized = data.map(element => formatData(element, req._collection))
     } else {
-        finalized = formatData(data);
+        finalized = formatData(data, req._collection);
     }
 
     return res.status(200).json(finalized);
 });
 
-function formatData(data) {
-    return Object.assign({
+function formatData(data, collection) {
+    let p = Object.assign({
         _id: uuid(),
         _createdOn: new Date(),
         _success: true
     }, data);
+
+    if (typeof collection !== "undefined") p["_collection"] = collection;
+    return p;
 }
 module.exports = router;

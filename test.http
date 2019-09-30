@@ -16,16 +16,17 @@ content-type: application/json
 
 ### 
 
-POST http://localhost:5000/company/bin_75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
+POST http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/company HTTP/1.1
 content-type: application/json
 
 {
     "name": "sample",
     "time": "145345435435"
 }
+
 ### 
 
-POST http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
+POST http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/student HTTP/1.1
 content-type: application/json
 
 [

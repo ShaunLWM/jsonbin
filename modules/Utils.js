@@ -24,6 +24,7 @@ let self = module.exports = {
         } else if (paths.length === 2) {
             if (paths[0].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) return next(new Error("uuid is in wrong format"));
             if (paths[1].match(new RegExp(/^\w+$/g)) === null) return next(new Error("collection only allows alphanumeric characters"));
+            req._collection = paths[1].trim();
         }
 
         return next();
