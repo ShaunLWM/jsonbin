@@ -22,6 +22,32 @@ class Redis {
         });
     }
 
+    getId(obj) {
+        if (typeof obj["_collection"] !== "undefined") {
+            return `${obj["_id"]}#${obj["_collection"]}`;
+        }
+
+        return obj["_id"];
+    }
+
+    async delete({ key, collection, id }) {
+        if (typeof collection !== "undefined") {
+            let data = await this._get(key, `*#${collection}`);
+            if (data.length < 1) return;
+            data.forEach(element => {
+                this.client.hdel(key, this.getId(element));
+            });
+        } else if (typeof id !== "undefined") {
+            let data = await this._get(key, `${id}*`);
+            if (data.length < 1) return;
+            data.forEach(element => {
+                this.client.hdel(key, this.getId(element));
+            });
+        } else if (typeof collection === "undefined" && typeof id === "undefined") {
+            this.client.del(key);
+        }
+    }
+
     async get(key, req) {
         let id = req._id
         let collection = req._collection

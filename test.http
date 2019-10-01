@@ -6,7 +6,7 @@ GET http://localhost:5000
 GET http://localhost:5000/genid
 ### 
 
-POST http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
+POST http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715 HTTP/1.1
 content-type: application/json
 
 {
@@ -16,7 +16,7 @@ content-type: application/json
 
 ### 
 
-POST http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/company HTTP/1.1
+POST http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/company HTTP/1.1
 content-type: application/json
 
 {
@@ -26,7 +26,7 @@ content-type: application/json
 
 ### 
 
-POST http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/student HTTP/1.1
+POST http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/student HTTP/1.1
 content-type: application/json
 
 [
@@ -41,10 +41,23 @@ content-type: application/json
 ]
 
 ###
-GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715 HTTP/1.1
 ###
-GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/student HTTP/1.1
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/student HTTP/1.1
+###
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/company HTTP/1.1
 
 ###
 
-GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/-56wsHgpY HTTP/1.1
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-s6IcXker HTTP/1.1
+
+###
+DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-s6IcXker
+
+###
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715 HTTP/1.1
+###
+DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/student
+
+###
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-ijN9gXHN

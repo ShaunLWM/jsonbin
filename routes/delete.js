@@ -1,8 +1,13 @@
 const router = require("express").Router();
-const rateLimit = require("express-rate-limit");
+const Utils = require("../modules/Utils");
 
-router.delete("/*", (req, res) => {
-
+router.delete("/*", Utils.validateUrl, (req, res) => {
+    let key = req._bin;
+    let collection = req._collection;
+    let id = req._id;
+    let database = req.app.database;
+    database.delete({ key, collection, id });
+    return res.status(200).json({ success: true })
 });
 
 module.exports = router;
