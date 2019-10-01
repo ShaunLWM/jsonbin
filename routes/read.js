@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Utils = require("../modules/Utils");
 const flatted = require("flatted");
 
-router.get("/*", Utils.binURLValidator, async(req, res, next) => {
+router.get("/*", Utils.validateUrl, async(req, res, next) => {
     let database = req.app.database;
     let bin = req._bin;
     if (!database.keyExists(bin)) return next(new Error("bin does not exist"));

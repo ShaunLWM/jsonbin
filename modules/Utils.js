@@ -13,10 +13,13 @@ let self = module.exports = {
             return false;
         }
     },
+    keysValidator: function(req, res, next) {
+        return Object.keys(req.body).every(key => /^[A-Za-z]/i.test(key[0]));
+    },
     cleanPath: function(str) {
         return str.split("/").filter(s => s.length > 1);
     },
-    binURLValidator: function(req, res, next) {
+    validateUrl: function(req, res, next) {
         let paths = self.cleanPath(req.path);
         if (paths.length > 2 || paths.length < 1) return next(new Error("wrong path parameters"))
         if (paths[0].match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) === null) {
