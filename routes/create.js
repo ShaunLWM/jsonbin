@@ -7,7 +7,7 @@ router.post("/*", [Utils.validateUrl, Utils.ensureBody, Utils.ensureJson, Utils.
     windowMs: 15 * 60 * 1000,
     max: 100
 })], (req, res) => {
-    let data = (typeof req.body === "object") ? req.body : JSON.parse(req.body);
+    let data = req.body;
     let finalized = null;
     if (Array.isArray(data)) {
         finalized = data.map(element => formatData(element, req))

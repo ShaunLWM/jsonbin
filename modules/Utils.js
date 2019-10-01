@@ -45,6 +45,7 @@ let self = module.exports = {
     },
     ensureJson: function(req, res, next) {
         if (!self.isJSON(req.body)) return next(new Error("data is not in valid json format"));
+        req.body = (typeof req.body === "object") ? req.body : JSON.parse(req.body);
         return next();
     },
     ensureBody: function(req, res, next) {
