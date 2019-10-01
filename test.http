@@ -43,4 +43,8 @@ content-type: application/json
 ###
 GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1 HTTP/1.1
 ###
-GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/company HTTP/1.1
+GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/student HTTP/1.1
+
+###
+
+GET http://localhost:5000/bin_75bf73bc-40d6-4010-a165-5a457468c4b1/-56wsHgpY HTTP/1.1
