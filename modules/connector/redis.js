@@ -8,8 +8,8 @@ class Redis {
         this.client = redis.createClient();
     }
 
-    keyExists(key) {
-        return this.client.exists(key);
+    async keyExists(key) {
+        return await this.client.existsAsync(key);
     }
 
     add(key, value) {

@@ -10,8 +10,8 @@ POST http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715 HTTP/1.1
 content-type: application/json
 
 {
-    "name": "sample",
-    "time": "145345435435"
+    "name": "Ace",
+    "age": "10"
 }
 
 ### 
@@ -20,8 +20,8 @@ POST http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/company HTTP
 content-type: application/json
 
 {
-    "name": "sample",
-    "time": "145345435435"
+    "name": "Bell",
+    "age": "15"
 }
 
 ### 
@@ -31,11 +31,11 @@ content-type: application/json
 
 [
   {
-    "name": "Daenerys Targaryen",
+    "name": "Cortnet",
     "age": 25
   },
   {
-    "name": "Arya Stark",
+    "name": "Daniel",
     "age": 16
   }
 ]
@@ -52,7 +52,7 @@ GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/company HTTP/
 GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-s6IcXker HTTP/1.1
 
 ###
-DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-s6IcXker
+DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/
 
 ###
 GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715 HTTP/1.1
@@ -61,3 +61,13 @@ DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/student
 
 ###
 GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-ijN9gXHN
+
+
+### sort by ascending
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?sort=age
+
+### sort by descending
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?sort=-age
+
+###
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?q=name:Daniel

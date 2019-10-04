@@ -72,5 +72,31 @@ let self = module.exports = {
     ensureBody: function(req, res, next) {
         if (typeof req.body === "undefined") return next(new Error("no body data found"));
         return next();
+    },
+    parseCustomSearch: function(params, data) {
+        let q = {};
+        params.split(",").forEach(i => (q[i.split(":")[0]] = i.split(":")[1]));
+        let filtered_data = [];
+        Object.entries(q).forEach(([key, value]) => { // "age": ">18"
+            data.filter(element => { // {"name":"john", "age": 20}
+                if (value.startsWith(">")) {
+                    let str = parseInt(value.substr(1)); // ">18" -> "18"
+                    return element[key] > str
+                }
+            });
+        });
+    },
+    dynamicSort: function(property) {
+        // https://stackoverflow.com/a/4760279
+        let sortOrder = 1;
+        if (property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+
+        return function(a, b) {
+            let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
     }
 }
