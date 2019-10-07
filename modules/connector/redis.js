@@ -48,6 +48,10 @@ class Redis {
         }
     }
 
+    async deleteKeyFromId(key, hashes) {
+        return this.client.hdelAsync(key, hashes);
+    }
+
     async get(key, req) {
         let id = req._id
         let collection = req._collection

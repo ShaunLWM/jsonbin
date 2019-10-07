@@ -71,3 +71,9 @@ GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?sort=-age
 
 ###
 GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?q=name:Daniel
+
+###
+DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?q=name:Daniel
+
+###
+DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?q=age:>1
