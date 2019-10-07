@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const path = require("path");
 const uuid = require("uuid/v4");
 
+const config = require("./config");
 const Database = require("./modules/connector/redis");
 const routes_create = require("./routes/create");
 const routes_read = require("./routes/read");
@@ -16,7 +17,6 @@ let database = new Database();
 app.enable("trust proxy");
 app.use(helmet());
 app.use(cors());
-app.use(express.static(path.join(__dirname, "wwww")));
 app.use(bodyParser.json());
 
 app.get("/genid", (req, res) => {
@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 });
 
 app.database = database;
-app.listen(5000, err => {
+app.listen(config.serverPort, err => {
     if (err) return console.error(err);
     console.log("[@] server started on port 5000");
 });

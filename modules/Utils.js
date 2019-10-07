@@ -1,3 +1,5 @@
+const config = require("../config");
+
 let self = module.exports = {
     getStringSize: function(str) {
         return Buffer.byteLength(str.toString(), "utf8");
@@ -19,7 +21,7 @@ let self = module.exports = {
     },
     keysValidator: function(req, res, next) {
         let validKeys = Array.isArray(req.body) ? req.body.every(self.isValidKeys) : self.isValidKeys(req.body);
-        if (!validKeys) return next(new Error("Invalid JSON keys. Keys should start with an alphabet"));
+        if (!validKeys) return next(new Error("invalid JSON keys. keys should start with an alphabet"));
         return next();
     },
     cleanPath: function(str) {
@@ -32,7 +34,8 @@ let self = module.exports = {
         return str.match(new RegExp(/^\w+$/g)) !== null;
     },
     matchUUIDv4: function(str) {
-        return str.match(new RegExp(/^bin_[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) !== null;
+        let regex = `^${config.redisExtension}[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$`
+        return str.match(new RegExp(regex, "i")) !== null;
     },
     validateUrl: function(req, res, next) {
         let paths = self.cleanPath(req.path);
@@ -43,7 +46,7 @@ let self = module.exports = {
 
         if (paths.length === 2) {
             if (self.matchCollection(paths[1])) {
-                if (paths[1].length > 20) return next(new Error("collection length cannot be longer than 20 characters"));
+                if (paths[1].length > config.collectionLength) return next(new Error("collection length cannot be longer than 20 characters"));
                 req._collection = paths[1].trim();
             } else if (self.matchId(paths[1])) {
                 req._id = paths[1].trim();

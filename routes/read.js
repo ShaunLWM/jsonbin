@@ -7,7 +7,6 @@ router.get("/*", Utils.validateUrl, async(req, res, next) => {
     let keyExist = await database.keyExists(key);
     if (!keyExist) return next(new Error("bin does not exist"));
     let data = await database.get(key, req);
-    console.log(req.query);
     if (typeof req.query["sort"] !== "undefined" && req.query["sort"].trim().length > 0) {
         return res.status(200).json(data.sort(Utils.dynamicSort(req.query["sort"])));
     }
@@ -18,7 +17,6 @@ router.get("/*", Utils.validateUrl, async(req, res, next) => {
         fq.split(",").forEach(i => ((i.length > 1) ? q[i.split(":")[0]] = i.split(":")[1] : ""));
         let filtered = [];
         let keysSize = Object.keys(q).length;
-        console.log(keysSize);
         filtered = data.filter(element => {
             let resultArray = [];
             Object.entries(q).forEach(([key, value]) => {
