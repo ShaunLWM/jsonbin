@@ -14,13 +14,18 @@ const routes_delete = require("./routes/delete");
 let app = express();
 let database = new Database();
 
+app.set('json spaces', 2)
 app.enable("trust proxy");
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+    return res.status(200).header("Content-Type", 'application/json').send(JSON.stringify(config.mainExplanation, null, 4));
+})
+
 app.get("/genid", (req, res) => {
-    return res.status(200).json({ _success: true, id: uuid() })
+    return res.status(200).json({ _success: true, id: `${config.redisExtension}${uuid()}` })
 });
 
 app.use(routes_create);
