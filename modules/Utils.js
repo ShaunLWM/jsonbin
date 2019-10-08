@@ -124,6 +124,10 @@ let self = module.exports = {
                     resultArray.push(element[key].endsWith(value.substr(1)));
                 } else if (value.endsWith("*")) {
                     resultArray.push(element[key].startsWith(value.slice(0, -1)));
+                } else if (value.toLowerCase() === "true") {
+                    resultArray.push(element[key] === true);
+                } else if (value.toLowerCase() === "false") {
+                    resultArray.push(element[key] === false);
                 } else {
                     resultArray.push(element[key] === value);
                 }
