@@ -119,9 +119,13 @@ let self = module.exports = {
                 } else if (value.startsWith("<")) {
                     resultArray.push(element[key] < parseFloat(value.substr(1)));
                 } else if (value.startsWith("=")) {
-                    resultArray.push(element[key] === value);
+                    resultArray.push(element[key] === value.substr(1));
+                } else if (value.startsWith("*")) {
+                    resultArray.push(element[key].endsWith(value.substr(1)));
+                } else if (value.endsWith("*")) {
+                    resultArray.push(element[key].startsWith(value.slice(0, -1)));
                 } else {
-                    resultArray.push(false)
+                    resultArray.push(element[key] === value);
                 }
             });
 
