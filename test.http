@@ -77,3 +77,12 @@ DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?q=name:Dan
 
 ###
 DELETE http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?q=age:>1
+
+### 
+PUT http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715/-JOqxEVh6 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Arya Stark", 
+  "age": 18
+}

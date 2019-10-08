@@ -1,3 +1,4 @@
+const cryptoRandomString = require("crypto-random-string");
 const config = require("../config");
 
 let self = module.exports = {
@@ -40,10 +41,7 @@ let self = module.exports = {
     validateUrl: function(req, res, next) {
         let paths = self.cleanPath(req.path);
         if (paths.length > 2 || paths.length < 1) return next(new Error("wrong path parameters"))
-        if (!self.matchUUIDv4(paths[0])) {
-            return next(new Error("uuid is in wrong format"));
-        }
-
+        if (!self.matchUUIDv4(paths[0])) return next(new Error("bin id is in wrong format"));
         if (paths.length === 2) {
             if (self.matchCollection(paths[1])) {
                 if (paths[1].length > config.collectionLength) return next(new Error("collection length cannot be longer than 20 characters"));
@@ -131,5 +129,25 @@ let self = module.exports = {
         })
 
         return filtered;
+    },
+    formatDatabaseJson: function(data, updatedData = null, isUpdate = false) {
+        if (!isUpdate) {
+            return Object.assign(data, {
+                _id: `-${cryptoRandomString({ length: 8, type: "url-safe" })}`,
+                _createdOn: new Date()
+            });
+        }
+
+        return Object.assign(updatedData, {
+            _id: data["_id"],
+            _createdOn: data["_createdOn"],
+            _updatedOn: new Date()
+        });
+
+        // return Object.assign(data, updatedData, {
+        //     _id: data["_id"],
+        //     _createdOn: data["_createdOn"],
+        //     _updatedOn: new Date()
+        // });
     }
 }

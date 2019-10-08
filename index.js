@@ -10,6 +10,7 @@ const Database = require("./modules/connector/redis");
 const routes_create = require("./routes/create");
 const routes_read = require("./routes/read");
 const routes_delete = require("./routes/delete");
+const routes_update = require("./routes/update");
 
 let app = express();
 let database = new Database();
@@ -31,6 +32,7 @@ app.get("/genid", (req, res) => {
 app.use(routes_create);
 app.use(routes_read);
 app.use(routes_delete);
+app.use(routes_update);
 
 app.use((err, req, res, next) => {
     console.error(err);
