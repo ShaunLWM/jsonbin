@@ -75,7 +75,7 @@ Delete all data from collection is collection is given
 If q is given, it will delete data based on filtering system according to how Retrieving Data works.
 ```
 
-Updating Data
+### Updating Data
 ```
 PUT /bin_id/id
 HEADER application/json
@@ -88,5 +88,5 @@ Note: Partial updating is not yet supported. This will do a full update and repl
 ## Credits
 - [vasanthv/jsonbox](https://github.com/vasanthv/jsonbox)
 
-# License
+## License
 MIT (2019) Shaun
