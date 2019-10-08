@@ -1,7 +1,5 @@
 # jsonbin
-<img src="https://img.shields.io/github/package-json/v/ShaunLWM/jsonbin"/>
-<img src="https://img.shields.io/github/license/ShaunLWM/jsonbin"/>
-<img src="https://img.shields.io/github/commit-activity/m/ShaunLWM/jsonbin"/>
+<img src="https://img.shields.io/github/package-json/v/ShaunLWM/jsonbin"/><img src="https://img.shields.io/github/license/ShaunLWM/jsonbin"/><img src="https://img.shields.io/github/commit-activity/m/ShaunLWM/jsonbin"/>
 
 A simple deployable Redis-backed JSON bin for your mini projects.
 
