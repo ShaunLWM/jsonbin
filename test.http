@@ -86,3 +86,6 @@ content-type: application/json
   "name": "Arya Stark", 
   "age": 18
 }
+
+###
+GET http://localhost:5000/bin_27943536-5fa6-47d9-b655-5c653b5c3715?page=0&limit=5

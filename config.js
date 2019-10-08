@@ -2,6 +2,7 @@ module.exports = {
     serverPort: 5000,
     redisExtension: "bin_",
     collectionLength: 20,
+    dataPerPage: 20,
     mainExplanation: [{
             method: "GET",
             path: "/genid",

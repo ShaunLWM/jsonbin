@@ -159,5 +159,16 @@ let self = module.exports = {
         //     _createdOn: data["_createdOn"],
         //     _updatedOn: new Date()
         // });
+    },
+    paginate: function(array, page_size, page_number) {
+        // https://stackoverflow.com/a/42761393
+        --page_number;
+        return array.slice(page_number * page_size, (page_number + 1) * page_size);
+    },
+    reqHasPage: function(req) {
+        return typeof req.query["page"] !== "undefined" && parseInt(req.query["page"], 10);
+    },
+    reqHasLimit: function(req) {
+        return typeof req.query["limit"] !== "undefined" && parseInt(req.query["limit"], 10);
     }
 }
