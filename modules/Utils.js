@@ -111,15 +111,15 @@ let self = module.exports = {
                 if (typeof element[key] === "undefined") {
                     resultArray.push(false)
                 } else if (value.startsWith(">=")) {
-                    resultArray.push(element[key] >= parseFloat(value.substr(2)));
+                    resultArray.push(parseFloat(element[key]) >= parseFloat(value.substr(2)));
                 } else if (value.startsWith("<=")) {
-                    resultArray.push(element[key] <= parseFloat(value.substr(2)));
+                    resultArray.push(parseFloat(element[key]) <= parseFloat(value.substr(2)));
                 } else if (value.startsWith(">")) {
-                    resultArray.push(element[key] > parseFloat(value.substr(1)));
+                    resultArray.push(parseFloat(element[key]) > parseFloat(value.substr(1)));
                 } else if (value.startsWith("<")) {
-                    resultArray.push(element[key] < parseFloat(value.substr(1)));
+                    resultArray.push(parseFloat(element[key]) < parseFloat(value.substr(1)));
                 } else if (value.startsWith("=")) {
-                    resultArray.push(element[key] === value.substr(1));
+                    resultArray.push(parseFloat(element[key]) === parseFloat(value.substr(1)));
                 } else if (value.startsWith("*")) {
                     resultArray.push(element[key].endsWith(value.substr(1)));
                 } else if (value.endsWith("*")) {
