@@ -16,8 +16,8 @@ module.exports = {
         {
             method: "GET",
             path: "/bin_id[/collection_name]",
-            description: "Retreive your data from bin. Perform custom query using the 'q' paramter or sort them in ascending '?sort=age' or descending order '?sort=-age'",
-            example: `curl -X GET '/bin_id' || curl -X GET '/bin_id/collection_name' || curl -X GET '/bin_id?q=id:Tim,score:24' || curl -X GET '/bin_id?sort=-score'`
+            description: "Retreive your data from bin. Perform custom query using the 'q' paramter (separate with ',', key and values with ':', operators with '>, <, >=, <=') or sort them in ascending '?sort=age' or descending order '?sort=-age'",
+            example: `curl -X GET '/bin_id' || curl -X GET '/bin_id/collection_name' || curl -X GET '/bin_id?q=id:Tim,score:>24' || curl -X GET '/bin_id?sort=-score'`
         },
         {
             method: "DELETE",
