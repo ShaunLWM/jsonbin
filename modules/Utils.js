@@ -118,8 +118,10 @@ let self = module.exports = {
                     resultArray.push(element[key] > parseFloat(value.substr(1)));
                 } else if (value.startsWith("<")) {
                     resultArray.push(element[key] < parseFloat(value.substr(1)));
-                } else {
+                } else if (value.startsWith("=")) {
                     resultArray.push(element[key] === value);
+                } else {
+                    resultArray.push(false)
                 }
             });
 
