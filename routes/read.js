@@ -8,6 +8,7 @@ router.get("/*", Utils.validateUrl, async(req, res, next) => {
     let keyExist = await database.keyExists(key);
     if (!keyExist) return next(new Error("bin does not exist"));
     let data = await database.get(key, req);
+    // TODO: ?all=1
     let limit = Utils.reqHasLimit(req) || config.dataPerPage;
     let page = Utils.reqHasPage(req) || 1;
     if (limit) data = Utils.paginate(data, limit, page);

@@ -5,6 +5,9 @@
     "repository": "git@github.com:ShaunLWM/jsonbin.git",
     "author": "ShaunLWM",
     "license": "MIT",
+    "engines": {
+        "node": ">=8"
+    },
     "dependencies": {
         "bluebird": "^3.5.5",
         "body-parser": "^1.19.0",

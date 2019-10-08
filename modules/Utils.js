@@ -123,7 +123,7 @@ let self = module.exports = {
                 } else if (value.startsWith("*")) {
                     resultArray.push(element[key].endsWith(value.substr(1)));
                 } else if (value.endsWith("*")) {
-                    resultArray.push(element[key].startsWith(value.slice(0, -1)));
+                    resultArray.push(element[key].startsWith(value.slice(0, -1))); //TODO: *name*
                 } else if (value.toLowerCase() === "true") {
                     resultArray.push(element[key] === true);
                 } else if (value.toLowerCase() === "false") {
