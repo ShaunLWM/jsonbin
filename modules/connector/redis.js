@@ -85,7 +85,7 @@ class Redis {
             if (cursor === "0") break;
         }
 
-        return arr.sort(function(a, b) {
+        return arr.sort(function (a, b) {
             return new Date(b["_createdOn"]) - new Date(a["_createdOn"]);
         });
     }
@@ -96,7 +96,7 @@ class Redis {
             arr.push(flatted.parse(value));
         });
 
-        return arr.sort(function(a, b) {
+        return arr.sort(function (a, b) {
             return new Date(b["_createdOn"]) - new Date(a["_createdOn"]);
         });
     }

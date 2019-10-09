@@ -2,13 +2,13 @@ const cryptoRandomString = require("crypto-random-string");
 const config = require("../config");
 
 let self = module.exports = {
-    getStringSize: function(str) {
+    getStringSize: function (str) {
         return Buffer.byteLength(str.toString(), "utf8");
     },
-    fieldOverSized: function(str) {
+    fieldOverSized: function (str) {
         return self.getStringSize(str) > 10000;
     },
-    isJSON: function(str) {
+    isJSON: function (str) {
         if (typeof str === "object") str = JSON.stringify(str)
         try {
             return (JSON.parse(str) && !!str);
@@ -16,29 +16,29 @@ let self = module.exports = {
             return false;
         }
     },
-    isValidKeys: function(obj) {
+    isValidKeys: function (obj) {
         const keys = Object.keys(obj);
         return keys.every(key => /^[A-Za-z]/i.test(key[0]));
     },
-    keysValidator: function(req, res, next) {
+    keysValidator: function (req, res, next) {
         let validKeys = Array.isArray(req.body) ? req.body.every(self.isValidKeys) : self.isValidKeys(req.body);
         if (!validKeys) return next(new Error("invalid JSON keys. keys should start with an alphabet"));
         return next();
     },
-    cleanPath: function(str) {
+    cleanPath: function (str) {
         return str.split("/").filter(s => s.length > 1);
     },
-    matchId: function(str) {
+    matchId: function (str) {
         return str.match(new RegExp(/^-[\w._~]{8}$/g)) !== null;
     },
-    matchCollection: function(str) {
+    matchCollection: function (str) {
         return str.match(new RegExp(/^\w+$/g)) !== null;
     },
-    matchUUIDv4: function(str) {
+    matchUUIDv4: function (str) {
         let regex = `^${config.redisExtension}[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$`
         return str.match(new RegExp(regex, "i")) !== null;
     },
-    validateUrl: function(req, res, next) {
+    validateUrl: function (req, res, next) {
         let paths = self.cleanPath(req.path);
         if (paths.length > 2 || paths.length < 1) return next(new Error("wrong path parameters"))
         if (!self.matchUUIDv4(paths[0])) return next(new Error("bin id is in wrong format"));
@@ -56,7 +56,7 @@ let self = module.exports = {
         req._bin = paths[0];
         return next();
     },
-    validateObjectValueSize: function(req, res, next) {
+    validateObjectValueSize: function (req, res, next) {
         Object.entries(req.body).forEach(([key, val]) => {
             if (self.fieldOverSized(val)) {
                 return next(new Error(`field ${key} more than 10kb. current: ${Utils.getStringSize(val)}`));
@@ -65,16 +65,16 @@ let self = module.exports = {
 
         return next();
     },
-    ensureJson: function(req, res, next) {
+    ensureJson: function (req, res, next) {
         if (!self.isJSON(req.body)) return next(new Error("data is not in valid json format"));
         req.body = (typeof req.body === "string") ? JSON.parse(req.body) : req.body;
         return next();
     },
-    ensureBody: function(req, res, next) {
+    ensureBody: function (req, res, next) {
         if (typeof req.body === "undefined") return next(new Error("no body data found"));
         return next();
     },
-    parseCustomSearch: function(params, data) {
+    parseCustomSearch: function (params, data) {
         let q = {};
         params.split(",").forEach(i => (q[i.split(":")[0]] = i.split(":")[1]));
         let filtered_data = [];
@@ -87,7 +87,7 @@ let self = module.exports = {
             });
         });
     },
-    dynamicSort: function(property) {
+    dynamicSort: function (property) {
         // https://stackoverflow.com/a/4760279
         let sortOrder = 1;
         if (property[0] === "-") {
@@ -95,12 +95,12 @@ let self = module.exports = {
             property = property.substr(1);
         }
 
-        return function(a, b) {
+        return function (a, b) {
             let result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
             return result * sortOrder;
         }
     },
-    parseQuery: function(query, data) {
+    parseQuery: function (query, data) {
         let q = {};
         let fq = query + ",";
         fq.split(",").forEach(i => ((i.length > 1) ? q[i.split(":")[0]] = i.split(":")[1] : ""));
@@ -140,7 +140,7 @@ let self = module.exports = {
 
         return filtered;
     },
-    formatDatabaseJson: function(data, updatedData = null, isUpdate = false) {
+    formatDatabaseJson: function (data, updatedData = null, isUpdate = false) {
         if (!isUpdate) {
             return Object.assign(data, {
                 _id: `-${cryptoRandomString({ length: 8, type: "url-safe" })}`,
@@ -160,15 +160,15 @@ let self = module.exports = {
         //     _updatedOn: new Date()
         // });
     },
-    paginate: function(array, page_size, page_number) {
+    paginate: function (array, page_size, page_number) {
         // https://stackoverflow.com/a/42761393
         --page_number;
         return array.slice(page_number * page_size, (page_number + 1) * page_size);
     },
-    reqHasPage: function(req) {
+    reqHasPage: function (req) {
         return typeof req.query["page"] !== "undefined" && parseInt(req.query["page"], 10);
     },
-    reqHasLimit: function(req) {
+    reqHasLimit: function (req) {
         return typeof req.query["limit"] !== "undefined" && parseInt(req.query["limit"], 10);
     }
 }

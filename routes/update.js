@@ -5,7 +5,7 @@ const Utils = require("../modules/Utils");
 router.put("/*", [Utils.validateUrl, Utils.ensureBody, Utils.ensureJson, Utils.validateObjectValueSize, Utils.keysValidator, rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100
-})], async(req, res, next) => {
+})], async (req, res, next) => {
     let database = req.app.database;
     let key = req._bin;
     let id = req._id;

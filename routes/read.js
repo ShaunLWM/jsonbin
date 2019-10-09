@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Utils = require("../modules/Utils");
 const config = require("../config");
 
-router.get("/*", Utils.validateUrl, async(req, res, next) => {
+router.get("/*", Utils.validateUrl, async (req, res, next) => {
     let database = req.app.database;
     let key = req._bin;
     let keyExist = await database.keyExists(key);

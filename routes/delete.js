@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Utils = require("../modules/Utils");
 
-router.delete("/*", Utils.validateUrl, async(req, res) => {
+router.delete("/*", Utils.validateUrl, async (req, res) => {
     let database = req.app.database;
     let key = req._bin;
     let collection = req._collection;
